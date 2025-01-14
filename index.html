@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Text Floating Fade Transition</title>
+  <style>
+    /* 
+      Radial gradient background 
+    */
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(ellipse at bottom, #5091DD 0%, #030617 100%);
+      font-family: Arial, sans-serif;
+      color: #fff;
+    }
+
+    /* 
+      The outer container spans the entire viewport, 
+      hosting absolutely positioned text elements. 
+    */
+    .outer-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    /* 
+      Each .text is absolutely centered:
+      top: 50%, left: 50%, transform: translate(-50%, -50%). 
+      We start them invisible (opacity: 0) and hidden (display: none).
+    */
+    .text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      display: none;
+      transition: transform 3s ease, opacity 2s ease;
+      width: 80%;
+      max-width: 600px;
+      text-align: center;
+      font-size: 1.2em;
+    }
+
+    /* 
+      .visible -> text is on top (z-index: 2), fully visible, 
+      and perfectly centered (translate(-50%, -50%)).
+    */
+    .text.visible {
+      display: block;
+      opacity: 1;
+      z-index: 2;
+    }
+
+    /* 
+      .floating -> old text drifts upward & slightly shrinks 
+      (going behind the new text). 
+      Example: from (-50%, -50%) to (-50%, -70%) scale(0.9).
+    */
+    .text.floating {
+      transform: translate(-50%, 300%) scale(0.5);
+      opacity: 0;
+      z-index: 1; /* behind the new text */
+    }
+
+    /* 
+      Final container is also absolutely centered, 
+      hidden until the last text is displayed. 
+    */
+    .final-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      width: 80%;
+      max-width: 600px;
+      z-index: 2;
+      text-align: center;
+    }
+
+    .final-container.visible {
+      display: flex;
+    }
+
+    /* Buttons */
+    .button {
+      padding: 10px 20px;
+      font-size: 1em;
+      color: #fff;
+      background-color: #007BFF;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .button:hover {
+      background-color: #0056b3;
+    }
+
+    /* Final message styling */
+    .final-message {
+      font-size: 1.2em;
+      color: #fff;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="outer-container">
+    <!-- Text lines -->
+    <div class="text visible">Eu não aceito. Eu não quero, eu rejeito de tudo quanto for maneira.</div>
+    <div class="text">Eu quero nos dar mais tempo.</div>
+    <div class="text">Mais uma década</div>
+    <div class="text">Mais um ano</div>
+    <div class="text">Mais um semestre</div>
+    <div class="text">Mais um mês</div>
+    <div class="text">Mais uma semana</div>
+    <div class="text">Mais um dia, que seja</div>
+    <div class="text">Mais algumas horas, por favor</div>
+    <div class="text">Eu quero te ter por mais alguns segundos.</div>
+    <div class="text">Porque eu sei que no segundo que tudo acabar</div>
+    <div class="text">Todos os nossos problemas terão solução</div>
+    <div class="text">Era só eu tentar o Queijo Gouda</div>
+    <div class="text">Era só ter conversado ao invés de fugir quando a emoção subisse</div>
+    <div class="text">Era só ter falado de maneira menos combativa</div>
+    <div class="text">Era só ter comunicado mais claramente</div>
+    <div class="text">Era só combinar os limites daqui pra frente</div>
+    <div class="text">Era só passar por mais essa crise juntos</div>
+    <div class="text">E eu não aceito.</div>
+    <div class="text">Eu não quero, eu rejeito de tudo quanto for maneira deixar você virar mais um "Era só".</div>
+    <div class="text">Porque eu te amo hoje e não é porque a gente não seria mais a gente que eu deixaria de te amar amanhã.</div>
+    <div class="text">Hoje eu fui até a esquina, e ao invés de virar à direita em direção ao centro eu virei à esquerda. Procurando alguma loja onde eu sabia que não tinha nenhuma</div>
+    <div class="text">E então à esquerda de novo, morrendo de frio eu fui subindo a avenida.</div>
+    <div class="text">E então à esquerda mais uma vez. E pra não virar mais uma vez e entrar na sua rua eu entrei na padaria e pedi uma caixa de fósforos.</div>
+    <div class="text">E imediatamente veio o pensamento "Era só eu pedir pra ela vir aqui comigo"</div>
+    <div class="text">Então não, eu não voltei da esquina.</div>
+    <div class="text">Porque eu nem sei ao certo se seria correto comigo voltar atrás. Ou se seria certo com você te deixar confusa dessa maneira. Ou ainda, não sei nem se o meu lar me quereria de volta.</div>
+    <div class="text">Se a pessoa que é minha casa me quer por perto.</div>
+    <div class="text">É sempre o mesmo sentimento. De quê se eu ir embora você vai ficar onde está.</div>
+    <div class="text">E não me procurar mais</div>
+    <div class="text">Como se eu fosse um papel que você segura.</div>
+    <div class="text">E eu digo isso não como se eu fosse descartável ou que inevitávelmente seria jogado fora. De maneira nenhuma</div>
+    <div class="text">Mas sim como se eu fosse levado pelo vento você não correria atrás.</div>
+    <div class="text">Não sei se pra não despentear o cabelo, ou por medo de não conseguir pegar no ar, ou por respeito às decisões do papel</div>
+    <div class="text">Mas eu esperei você me mandar mensagem</div>
+    <div class="text">Ou me ligar e perguntar onde eu estava</div>
+    <div class="text">Eu rodei o seu quarteirão com o celular na mão esperando algum sinal</div>
+    <div class="text">Alguma coisa</div>
+    <div class="text">Na verdade eu estava esperando desde ontem Qualquer sinal de que você me via e me buscaria.</div>
+    <div class="text">Porque eu te vejo</div>
+    <div class="text">E eu te busco</div>
+    <div class="text">Mas não hoje</div>
+    <div class="text">Eu não tenho forças pra te ligar</div>
+    <div class="text">Eu não consigo.</div>
+    <div class="text">Agora pra mim é mil vezes mais fácil passar horas escrevendo e programando do que apertar aquele botão do lado da sua foto.</div>
+    <div class="text">Eu não aceito.</div>
+    <div class="text">Eu não quero.</div>
+    <div class="text">Eu rejeito de tudo quanto for maneira.</div>
+    <div class="text">Eu não vou correr atrás de você pra que você me quebre em mil pedaços.</div>
+    <div class="text">Eu não vou ligar.</div>
+    <div class="text">Mas você pode, e tem todo o direito de tomar suas decisões.</div>
+    <div class="text">Então no fim, me desculpa. Eu não consigo correr atrás de novo, não consigo finalizar mais uma discussão propondo um cessar fogo. Não consigo propor mais um plano infalível pra te ter de volta porque o tempo tá correndo contra mim.</div>
+    <div class="text">Mas eu posso ainda deixar a porta aberta. Explicar que ela nunca esteve trancada e te dizer que eu estou esperando do outro lado dela.</div>
+
+    <!-- Final Container (Buttons + Message) -->
+    <div class="final-container">
+        <a href="https://wa.me/19981721460" class="button">Você pode clicar aqui e me ligar pra gente recomeçar e em questão de minutos eu estarei na sua porta, nem que seja pra te dar um beijo, um abraço e voltar pra casa.</a>
+        <a href="tel:19981721460" class="button">Ou pode clicar aqui e eu te poupo a dor de me olhar no olho quando você disser o que precisa dizer</a>
+        <div class="final-message">De qualquer maneira, eu te amo.</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentIndex = 0;
+    const texts = document.querySelectorAll('.text');
+    const finalContainer = document.querySelector('.final-container');
+
+    /**
+     * Show the next text (on click).
+     * The old text floats up behind the new one.
+     */
+    function showNextText() {
+      if (currentIndex < texts.length) {
+        const oldText = texts[currentIndex];
+        // Make it float up behind the new text
+        oldText.classList.add('floating');
+
+        // Move on to the next text
+        currentIndex++;
+
+        // If there's a next text, show it immediately, centered
+        if (currentIndex < texts.length) {
+          const newText = texts[currentIndex];
+          newText.classList.add('visible');
+        } else {
+          // No more text => show final buttons
+          finalContainer.classList.add('visible');
+        }
+
+        // After the transition ends, hide the old text fully
+        setTimeout(() => {
+          oldText.classList.remove('visible', 'floating');
+          oldText.style.display = 'none';
+        }, 3000);
+      }
+    }
+
+    // The very first text is already .visible in the HTML
+    document.body.addEventListener('click', showNextText);
+  </script>
+</body>
+</html>
